@@ -1,5 +1,5 @@
 # secrackit.py
-**secrackit.py** automates the following in a single command:
+**secrackit.py** automates the following into a single command:
 - Windows auth checks (CrackMapExec)
 - Dumps and parses secrets (Impacket-secretsdump)
 - Cracks NTLM hashes (Hashcat)
