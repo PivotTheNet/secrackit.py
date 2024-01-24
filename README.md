@@ -31,10 +31,10 @@
 
 ---
 
-DISCLAIMER as of 1-23-24
+#### DISCLAIMER as of 1-23-24
 
-1. I take zero(0) responsibility for your actions if and when you ever use(execute) "secrackit.py".
+##### 1. I take zero(0) responsibility for your actions if and when you ever use(execute) "secrackit.py".
 
-2. Do NOT execute "secrackit.py" without prior WRITTEN authorization from the owners of ANY target(s), system(s), and/or network(s) secrackit.py may run against.
+##### 2. Do NOT execute "secrackit.py" without prior WRITTEN authorization from the owners of ANY target(s), system(s), and/or network(s) secrackit.py may run against.
 
-3. Do NOT use "secrackit.py" for illegal activities and/or purposes.
+##### 3. Do NOT use "secrackit.py" for illegal activities and/or purposes.
