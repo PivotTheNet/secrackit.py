@@ -37,21 +37,22 @@
 
 
 # Story behind the script?
-## After some AD labs online and at home, I found myself running these three scripts over and over. I also wanted to organize dumped hashes by prepending IP, SAM or NTDS, etc to the NTLM hashes.
+## After some AD labs online and at home, I found myself running these three scripts over and over. I also wanted to organize any dumped hashes by prepending IP, SAM or NTDS, etc to the NTLM hashes.
 
 # Why so many comments? XD
-## I'm learning and it helps when I come back to it later. Maybe it'll help others too. :)
+## I'm learning python and it helps when I come back to it later. Maybe it'll help others too. :)
 
 
-# Example syntax: ./secrackit.py DC-IP domain.name IPs.txt accountname pw Password -localauth -out_dir ~/Desktop/toolsoutput -wordlist ~/Desktop/wordlists/customwordlist.txt -rule ~/media/hashcatrules/TwoRule.rule
+# How-To
+## Run -h or read details at https://github.com/PivotTheNet/secrackit.py/tree/main#script-execution-explained
 
-## Arguments with a '-' (hyphen) are optional. Run `-h` for details.
 
-
-# Script requirements?
-## - Crackmapexec, impacket-secretsdump, and hashcat need to be in your $PATH.
-## - If you aren't specifying a wordlist, `/usr/share/wordlists/rockyou.txt` needs to be present. 
-## - If you're on Kali, you can extract rockyou.txt and then install the needed tools via apt.
+# Script prerequisites?
+## - Packages crackmapexec, impacket-secretsdump, and hashcat must be installed and present in your $PATH.
+## - If you aren't specifying a custom wordlist, via -wordlist, secrackit.py will default to rockyou.txt located at /usr/share/wordlists/rockyou.txt. 
+## - If you're on Kali, simply do the following to install and prep the three required tools:
+##		- sudo apt update && sudo apt install crackmapexec python3-impacket hashcat
+##		- If you haven't ran these tools before, run each tool once before running secrackit.py. Some tools create databases, etc on their first run and this may cause issues for secrackit.py.(never tested)
 
 
 # Shout-out to the makers of the tools "secrackit.py" simply automates:
@@ -1072,7 +1073,7 @@ def create_final_hashcat_results(directory_location, NetworkID_for_files):
 
 
 # Export to file and show on terminal the results of --show from hashcat.
-def export_file_and_terminal_results(final_cracked_list_results, final_hashcat_results_location):
+def export_file_and_terminal_results(final_cracked_list_results, final_hashcat_results_location, directory_location):
 
 	# Open new file with write permission with naming convention.
 	export_final_data = open(final_hashcat_results_location, "a")
@@ -1083,7 +1084,7 @@ def export_file_and_terminal_results(final_cracked_list_results, final_hashcat_r
 	# Close file, so it's no longer in use.
 	export_final_data.close()
 
-	print("Final hashcat results exported:\n" + final_cracked_list_results)
+	print("Final hashcat results exported:\n" + final_cracked_list_results + "\nAll findings exported to directory: " +  directory_location)
 
 
 
@@ -1106,20 +1107,20 @@ def main():
 	# -wordlist - Specify a custom wordlist for hashcat. /usr/share/wordlists/rockyou.txt runs by default when absent.
 	# -rule - Specify location of custom rule for hashcat. No rule used when absent.
 
-	parser = argparse.ArgumentParser(description="'secrackit.py' - Automates Windows auth checks(CrackMapExec), parses secretsdump(Impacket-secretsdump), and cracks NTLM hashes(Hashcat). For details, credits, and disclaimers: open \"secrackit.py\" in a text editor.", epilog="Example syntax: \"./secrackit.py 192.168.1.10 domain.local IPs.txt hackmyacct pw BadPassword123 -local -out_dir ~/Desktop/toolsoutput -wordlist ~/Desktop/wordlists/customwordlist.txt -rule ~/media/hashcatrules/OneRule.rule\"")
+	parser = argparse.ArgumentParser(description="'secrackit.py' - Automates Windows auth checks(CrackMapExec), parses secretsdump(Impacket-secretsdump), and cracks NTLM hashes(Hashcat). For details visit https://github.com/PivotTheNet/secrackit.py", epilog="Example syntax: \"./secrackit.py 192.168.1.10 domain.local IPs.txt hackmyacct pw BadPassword123 -local -out_dir ~/Desktop/toolsoutput -wordlist ~/Desktop/wordlists/customwordlist.txt -rule ~/media/hashcatrules/OneRule.rule\"")
 
 	# Required arguments needed to run the script.
 	parser.add_argument("DC_IP", action="store", help="IP of domain controller.")
 	parser.add_argument("Domain", action="store", help="Domain.name where target(s) belong.", type=str)
-	parser.add_argument("Target_IPs", action="store", help="Target IP, CIDR, or file containing either IP or CIDR format. (One per line)", type=str)
+	parser.add_argument("Target_IPs", action="store", help="Target IP, CIDR, or location of file containing IPs. (one per line)", type=str)
 	parser.add_argument("Account", action="store", help="AD account used for authentication.", type=str)
-	parser.add_argument("Flag_Password_or_NTLM", action="store", help="Specify if providing a password (\"pw\") or NTLM hash (\"ntlm\").", choices=(['pw', 'ntlm']), type=str)
+	parser.add_argument("Flag_Password_or_NTLM", action="store", help="Specify if providing a password (\"pw\") or NTLM hash (\"ntlm\") for authentication.", choices=(['pw', 'ntlm']), type=str)
 	parser.add_argument("Pass_or_NTLM_val", action="store", help="Password or NTLM hash associated with the provided AD account.", type=str)
 
 
 	# Optional arguments for specifying special options.
-	parser.add_argument("-localauth", action="store_true", help="Tells CME & Secretsdump to run against local authentication.")
-	parser.add_argument("-out_dir", action="store", nargs="?", const=1, help="Output directory for findings. Script default's to directory secrackit.py is executed from.", type=str)
+	parser.add_argument("-localauth", action="store_true", help="Tells CME & Secretsdump to run against local authentication. (Default is domain authentication)")
+	parser.add_argument("-out_dir", action="store", nargs="?", const=1, help="Output directory for findings. (Defaults to the directory secrackit.py is ran from)", type=str)
 	parser.add_argument("-wordlist", action="store", nargs="?", const=1, help="Specify custom wordlist location for Hashcat. (Default is /usr/share/wordlists/rockyou.txt)", type=str)
 	parser.add_argument("-rule", nargs="?", const=1, help="Specify custom rule location for Hashcat. (Default is none)", type=str)
 
@@ -1398,7 +1399,7 @@ def main():
 
 
 	#### Print off results to terminal and export to file.
-	exported_file_and_terminal_results = export_file_and_terminal_results(final_cracked_list_results, final_hashcat_results_location)
+	exported_file_and_terminal_results = export_file_and_terminal_results(final_cracked_list_results, final_hashcat_results_location, directory_location)
 
 
 	##### Call functions - ENDING #####
