@@ -18,12 +18,12 @@ Example syntax using all optional arguments:
 3. `IP` *or* `CIDR` *or* `/File.txt` - Target IPs. Either a single IP, single networkID(CIDR), or the location of a file containing one IP per line.
 4. `AccountName` - Single account name used for either local or domain authentication.
 5. `pw` *or* `ntlm` - Specify whether a password (`pw`) or NTLM hash (`ntlm`) will be inputted.
-6. `Password` *or* `NTLM value` - If `pw` argument passed, provide a cleartext password. If `ntlm` argument passed, provide a NTLM hash.
+6. `Password` *or* `NTLM hash` - Value of password **or** NTLM hash. If `pw` argument passed, provide a cleartext password. If `ntlm` argument passed, provide a NTLM hash.
 
 <ins>Optional arguments:</ins>  
 - `-localauth` - Use local authentication against targets. (Default is domain authentication) 
 - `-out_dir` - Specify directory location for results. (Defaults to the directory secrackit.py is ran from)
-- `-wordlist` - Specify custom wordlist location for Hashcat. (Default is /usr/share/wordlists/rockyou.txt)
+- `-wordlist` - Specify custom wordlist location for Hashcat. (Default is `/usr/share/wordlists/rockyou.txt`)
 - `-rule` - Specify rule location for Hashcat. (Default is no rule)
 - `-h` - Cancels script execution and displays help details.
 
