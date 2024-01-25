@@ -3,16 +3,16 @@
 1. Windows auth checks (CrackMapExec)
 2. Dumps and parses secrets (Impacket-secretsdump)
 3. Cracks NTLM hashes (Hashcat)
-
-<br/>
-
+---
 ### Table of Contents
 - [Script execution explained](https://github.com/PivotTheNet/secrackit.py/tree/main#script-execution-explained)
 - [Prereqs](https://github.com/PivotTheNet/secrackit.py/tree/main#script-prerequisites)
-- 
+- [Q/A](https://github.com/PivotTheNet/secrackit.py/tree/main#qa)
+- [Shout-outs](https://github.com/PivotTheNet/secrackit.py/tree/main#shout-outs)
+- [Disclaimer](https://github.com/PivotTheNet/secrackit.py/tree/main#disclaimer)
 
 
-<br/>
+---
 
 ### Script execution explained:  
 
@@ -35,12 +35,14 @@ Example syntax using all optional arguments:
 - `-rule` - Specify rule location for Hashcat. (Default is no rule)
 - `-h` - Cancels script execution and displays help details.
 
-<br/>
+---
 
 ### Script prerequisites?
-1. Crackmapexec, impacket-secretsdump, and hashcat need to be in your $PATH.
-2. If you aren't specifying a wordlist, `/usr/share/wordlists/rockyou.txt` needs to be present.
-3. If you're on Kali, you can extract rockyou.txt and then install the needed tools via apt.
+1. Packages `crackmapexec`, `impacket-secretsdump`, and `hashcat` must be installed and present in your $PATH.
+2. If you aren't specifying a custom wordlist, via `-wordlist`, secrackit.py will default to rockyou.txt located at `/usr/share/wordlists/rockyou.txt`.
+3. If you're on Kali, simply do the following to install and prep the three required tools:  
+   i. `sudo apt update && sudo apt install crackmapexec python3-impacket hashcat`  
+   ii. If you haven't ran these tools before, run each tool once before running secrackit.py. Some tools create databases, etc on their first run and this may cause issues for secrackit.py.(never tested)  
 
 ---
 
