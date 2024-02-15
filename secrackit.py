@@ -34,9 +34,9 @@
 # What does secrackit.py do?
 ## secrackit.py automates the following into a single command:
 ## - Windows SMB auth checks (CrackMapExec)
-## - Dumps and parses NTLM hashes from secrets (Impacket-secretsdump)
-## - Cracks worthy NTLM hashes (Hashcat)
-## - Exports both tool and command outputs to directory.
+## - Parses worthy NTLM hashes from secrets (Impacket-secretsdump)
+## - Attempts to crack worthy NTLM hashes (Hashcat)
+## - Exports both parsed and original command outputs to a directory.
 
 
 # Story behind the script?
