@@ -1,8 +1,9 @@
 # secrackit.py
 **secrackit.py** automates the following into a single command:
-1. Windows auth checks (CrackMapExec)
-2. Dumps and parses secrets (Impacket-secretsdump)
+1. Windows SMB auth checks (CrackMapExec)
+2. Dumps and parses NTLM hashes from secrets (Impacket-secretsdump)
 3. Cracks NTLM hashes (Hashcat)
+4. Exports both tool and command outputs to directory.
 ---
 ### Table of Contents
 - [Script execution explained](https://github.com/PivotTheNet/secrackit.py/tree/main#script-execution-explained)

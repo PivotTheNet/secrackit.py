@@ -1,5 +1,7 @@
 #!/bin/python3
 
+# Updated on 2-15-23
+## Added description #4.
 ###################### CREATED BY revsh3ll ########################
 ##################### PivotTheNet.github.io #######################
 ##################### github.com/PivotTheNet ######################
@@ -31,9 +33,10 @@
 
 # What does secrackit.py do?
 ## secrackit.py automates the following into a single command:
-## - Windows auth checks (CrackMapExec)
-## - Dumps and parses secrets (Impacket-secretsdump)
-## - Cracks NTLM hashes (Hashcat)
+## - Windows SMB auth checks (CrackMapExec)
+## - Dumps and parses NTLM hashes from secrets (Impacket-secretsdump)
+## - Cracks worthy NTLM hashes (Hashcat)
+## - Exports both tool and command outputs to directory.
 
 
 # Story behind the script?
